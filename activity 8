@@ -1,26 +1,28 @@
 #include <stdio.h>
 struct fraction
 {
-int n,d;
+  int n, d;
 };
-int greatestcommondivisor (int a,int b)
+
+int greatestcommondivisor (int a, int b)
 {
-int gcd =1,i;
-for(i=2;i<==a && b%i<=b,i++)
-{
-Int gcd = 1,i;
-for (i=2;i<=a && b%i==0)
-gcd=i;
+  int gcd = 1, i;
+
+  for (i = 2; i <= a && i <= b; i++)
+    {
+      if (a % i == 0 && b % i == 0)
+    gcd = i;
+    }
+  return gcd;
 }
-return gcd;
-}
-Struct fraction compute(struct fraction a, struct fraction b)
+
+struct fraction compute (struct fraction a, struct fraction b)
 {
-struct fraction sum;
-int gcd;
-sum.n=(a.n*b.d)+(b.n*a.d);
-sum.d=a.d*b.d;
-gcd = greatestcommondivisor (sum.n, sum.d);
+  struct fraction sum;
+  int gcd;
+  sum.n = (a.n * b.d) + (b.n * a.d);
+  sum.d = a.d * b.d;
+  gcd = greatestcommondivisor (sum.n, sum.d);
   sum.d = (sum.d) / gcd;
   sum.n = (sum.n) / gcd;
   return sum;
