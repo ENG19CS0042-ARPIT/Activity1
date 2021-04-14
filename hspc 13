@@ -1,0 +1,96 @@
+#include<stdio.h>
+#include<math.h>
+struct points 
+{
+float x;
+float y;
+};
+typedef struct points pt;
+ 
+struct rectangle
+{
+float length;
+float breadth;
+float area;
+pt p[3];
+};
+typedef struct rectangle rect;
+
+void input_1(rect *one)
+{
+for(int i=0;i<3;i++)
+{
+printf("point %d \n",i+1);
+printf("enter the value of x-coordinate & y-coordinate: \n");
+scanf("%f %f",&one->p[i].x, &one->p[i].y);
+}
+}
+
+void input_n(int n,rect rt[ ])
+{
+for(int i=0;i<n;i++)
+input_1(&rt[i]);
+}
+
+float calculate_distance(float x1,float x2,float y1,float y2)
+{
+float distance= sqrt(pow ((x2-x1),2) + pow((y2-y1),2));
+return distance;
+}
+
+void calculate_1_b(rect *one)
+{
+float a,b,c;
+a=calculate_distance(one->p[0].x,one->p[1].x,one->p[0].y,one->p[1].y);
+b=calculate_distance(one->p[0].x,one->p[2].x,one->p[0].y,one->p[2].y);
+c=calculate_distance(one->p[1].x,one->p[2].x,one->p[1].y,one->p[2].y);
+if(a<=b && a<=c)
+{
+one->length=a;
+one->breadth=fmin(b,c);
+}
+else if(b<=a && b<=c)
+{
+one->length=b;
+one->breadth=fmin(a,c);
+}
+else 
+{
+one->length=c;
+one->breadth=fmin(a,c);
+}
+}
+
+void compute_area_1(rect *one)
+{
+calculate_1_b(one);
+one->area=one->length*one->breadth;
+}
+
+void compute_area_n(int n,rect rt[ ])
+{
+for(int i=0;i<n;i++)
+compute_area_1(&rt[i]);
+}
+
+void output_1(rect *one)
+{
+printf("area of rectangle with vertices (%.2f,%.2f) ,(%.2f,%.2f),(%.2f,%.2f) is %.2f \n",one->p[0].x,one->p[0].y,one->p[1].x,one->p[1].y,one->p[2].x,one->p[2].y,one->area);
+}
+
+void output_n(int n,rect rt[ ])
+{
+for(int i=0;i<n;i++)
+output_1(&rt[i]);
+}
+int main()
+{
+int n;
+printf("enter the number of rectangles");
+scanf("%d",&n);
+rect rt[n];
+input_n(n,rt);
+compute_area_n(n,rt);
+output_n(n,rt);
+return 0;
+}
